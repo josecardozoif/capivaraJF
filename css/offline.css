@@ -1,0 +1,16 @@
+body {
+    font-family: sans-serif;
+    background-color: lightgray;
+}
+
+html, .fullscreen {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.offline {
+    margin: auto;
+}

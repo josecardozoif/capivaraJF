@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="exemplo de fallback">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="white">
+    
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="icon" href="/images/pwa-icon-256.png" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="images/pwa-icon-512.png">
     <title>Minha primeira PWA</title>
-    <link rel="apple-touch-icon" href="images/pwa-icon-256.png" />
-    <link rel="stylesheet" href="css/style.css" />
-    <!--viewport para designers responsivos (mobo), content é a configuração-->
-    <link rel="icon" href="favicon.ico">
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/db.js"></script>
 </head>
 
 <body class="fullscreen">
@@ -21,13 +22,20 @@
         </div>
         <div id="entrada">
             <input type="text" id="titulo" placeholder="Titulo">
+            <select id="categoria" placeholder="Categoria">
+                <option>Tarefa</option>
+                <option>Receita</option>
+                <option>Evento</option>
+            </select>
             <textarea id="descricao" cols="30" rows="10" placeholder="Descrição"></textarea>
             <input type="date" id="data">
             <button id="btnCadastro">Cadastrar</button>
             <button id="btnCarregar">Carregar Minhas Anotações</button>
+            <button id="btnDeletar">Deletar Minhas Anotações</button>
         </div>
         <div id="resultados"></div>
     </div>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/db.js"></script>
 </body>
-
 </html>

@@ -1,6 +1,7 @@
 import { openDB } from "idb";
 
 let db;
+
 async function criarDB(){
     try {
         db = await openDB('banco', 1, {
@@ -24,8 +25,10 @@ async function criarDB(){
 
 window.addEventListener('DOMContentLoaded', async event =>{
     criarDB();
+    //document.getElementById('input')
     document.getElementById('btnCadastro').addEventListener('click', adicionarAnotacao);
     document.getElementById('btnCarregar').addEventListener('click', buscarTodasAnotacoes);
+    document.getElementById('btnDeletar').addEventListener('click', deletarAnotacao);
 });
 
 async function buscarTodasAnotacoes(){
@@ -40,6 +43,7 @@ async function buscarTodasAnotacoes(){
             return `<div class="item">
                     <p>Anotação</p>
                     <p>${anotacao.titulo} - ${anotacao.data} </p>
+                    <p>${anotacao.categoria}</p>
                     <p>${anotacao.descricao}</p>
                    </div>`;
         });
@@ -49,12 +53,17 @@ async function buscarTodasAnotacoes(){
 
 async function adicionarAnotacao() {
     let titulo = document.getElementById("titulo").value;
+    let categoria = document.getElementById("categoria").value;
     let descricao = document.getElementById("descricao").value;
     let data = document.getElementById("data").value;
     const tx = await db.transaction('anotacao', 'readwrite')
     const store = tx.objectStore('anotacao');
     try {
-        await store.add({ titulo: titulo, descricao: descricao, data: data });
+        await store.add({ 
+            titulo: titulo, 
+            categoria: categoria, 
+            descricao: descricao, 
+            data: data });
         await tx.done;
         limparCampos();
         console.log('Registro adicionado com sucesso!');
@@ -64,8 +73,21 @@ async function adicionarAnotacao() {
     }
 }
 
+async function deletarAnotacao() {
+    const tx = await db.transaction('anotacao', 'readwrite')
+    const store = tx.objectStore('anotacao');
+    const user = await store.get(userName);
+    if(user){
+        store.delete(userName);
+        buscarTodasAnotacoes();
+    } else {
+        console.error("Dados não encontrados no banco!")
+    }
+}
+
 function limparCampos() {
     document.getElementById("titulo").value = '';
+    document.getElementById("categoria").value = '';
     document.getElementById("descricao").value = '';
     document.getElementById("data").value = '';
 }
