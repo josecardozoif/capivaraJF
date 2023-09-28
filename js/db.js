@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', async event =>{
     document.getElementById('btnCadastro').addEventListener('click', adicionarAnotacao);
     document.getElementById('btnCarregar').addEventListener('click', buscarTodasAnotacoes);
     document.getElementById('btnDeletar').addEventListener('click', deletarAnotacao);
+    document.getElementById('btnAlterar').addEventListener('click', alterarAnotacao);
     document.getElementById('btnBuscar').addEventListener('click', buscarUmaAnotacao);
 });
 
@@ -63,9 +64,15 @@ async function buscarTodasAnotacoes(){
                     <p>${anotacao.titulo} - ${anotacao.data} </p>
                     <p>${anotacao.categoria}</p>
                     <p>${anotacao.descricao}</p>
+                    <button class="btnDeletar">Deletar</button>
+                    <button class="btnAlterar">Alterar</button>
                    </div>`;
         });
         listagem(divLista.join(' '));
+        const deletar = document.querySelectorAll('.btnDeletar') 
+        deletar.forEach((deletar, index) => {
+            deletar.addEventListener('click', () => deletarAnotacao(anotacoes[index].titulo))
+        });
     }
 }
 
@@ -119,15 +126,16 @@ async function adicionarAnotacao() {
     }
 }
 
-async function deletarAnotacao() {
+async function deletarAnotacao(titulo) {
     const tx = await db.transaction('anotacao', 'readwrite')
     const store = tx.objectStore('anotacao');
-    const dell = await store.delete();
-    if(dell){
-        store.delete(anotacao);
-        buscarTodasAnotacoes();
-    } else {
-        console.error("Dados não encontrados no banco!")
+    try {
+        await store.delete(titulo);
+        buscarTodasAnotacoes()
+        console.log('Anotação deletada com sucesso!');
+    } catch (error) {
+        console.error('Erro ao deletar anotação:', error);
+        tx.abort();
     }
 }
 
