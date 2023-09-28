@@ -1,9 +1,14 @@
+@font-face {
+    font-family: Mine;
+    src: url(../fonts/Minecraft.ttf);
+}
+
 body {
-    font-family: sans-serif;
-    background-color: lightgray;
+    font-family: "Mine";
 }
 
 html, .fullscreen {
+    background-color: rgb(119, 175, 51);
     display: flex;
     height: 100%;
     margin: 0;
@@ -11,18 +16,60 @@ html, .fullscreen {
     width: 100%;
 }
 
+input {
+    font-family: "Mine";
+    margin: 3px;
+    background-color: #925133;
+    color: #f0f0f0;
+    text-align: center;
+}
+
+textarea {
+    font-family: "Mine";
+    background-color: #925133;
+    color: #f0f0f0;
+    text-align: center;
+}
+
+button {
+    font-family: "Mine";
+    background-color: rgb(119, 175, 51);
+    border: rgb(81, 120, 33) solid 2px;
+    color: #f0f0f0;
+    text-align: center;
+}
+
+select {
+    font-family: "Mine";
+    background-color: #925133;
+    border: rgb(119, 175, 51) solid 2px;
+    color: #f0f0f0;
+    text-align: center;
+}
+
+option {
+    background-color: rgb(81, 120, 33);
+}
+
 .container {
     margin: auto;
+    background-color: rgb(81, 120, 33);
 }
 
 #alterarForm {
     margin: auto;
+    background-color: #925133;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
     font-size: 3rem;
-    font-family: Arial, Helvetica, sans-serif;
-    color: darkblue
+    font-family: "Mine";
+    color: rgb(244, 250, 218);
+    text-align: center;
+    padding-left: 1px;
 }
 
 #entrada {
@@ -33,9 +80,21 @@ html, .fullscreen {
 
 #entrada input,
 #entrada textarea,
-#entrada button {
+#entrada button,
+#entrada select {
     margin: 10px 0;
-    width: 100%;
+    width: 80%;
+    border: rgb(119, 175, 51) solid 5px;
+}
+
+#alterarForm input,
+#alterarForm textarea,
+#alterarForm button,
+#alterarForm select {
+    margin: 10px 0;
+    width: 80%;
+    border: rgb(81, 120, 33) solid 5px;
+    background-color: rgb(119, 175, 51);
 }
 
 #resultado {
@@ -47,9 +106,10 @@ html, .fullscreen {
 .item {
     width: 85%;
     height: 100%;
-    background-color: #f0f0f0;
-    border: 20px solid #ccc;
-    margin: 5px; 
+    background-color: #925133;
+    border: 20px solid rgb(119, 175, 51);
+    color: #f0f0f0;
+    margin: 10px; 
     display: flex;
     flex-direction: column;
     align-items: center; 

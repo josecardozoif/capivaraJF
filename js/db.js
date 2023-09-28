@@ -56,7 +56,7 @@ async function buscarTodasAnotacoes(){
     if(anotacoes){
         const divLista = anotacoes.map(anotacao => {
             return `<div class="item">
-                    <p>Anotação</p>
+                    <p>Anotacao</p>
                     <p>${anotacao.titulo} - ${anotacao.data} </p>
                     <p>${anotacao.categoria}</p>
                     <p>${anotacao.descricao}</p>
@@ -98,7 +98,7 @@ async function buscarUmaAnotacao(){
     if(umanota){
         const divLista = umanota.map(anotacao => {
             return `<div class="item">
-                    <p>Anotação</p>
+                    <p>Anotacao</p>
                     <p>${anotacao.titulo} - ${anotacao.data} </p>
                     <p>${anotacao.categoria}</p>
                     <p>${anotacao.descricao}</p>

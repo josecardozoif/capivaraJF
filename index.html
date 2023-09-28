@@ -16,7 +16,7 @@
 
 <body class="fullscreen">
     <div class="container">
-        <h1 class="title">Minhas Anotações</h1>
+        <h1 class="title">Minhas Anotacoes</h1>
         <div style="text-align: center;">
             <img src="/images/capibaraNotes.png" alt="pwa" width="256" height="256">
         </div>
@@ -30,14 +30,15 @@
             <textarea id="descricao" cols="30" rows="10" placeholder="Descrição"></textarea>
             <input type="date" id="data">
             <button id="btnCadastro">Cadastrar</button>
-            <button id="btnCarregar">Carregar Minhas Anotações</button>
+            <button id="btnCarregar">Carregar Minhas Anotacoes</button>
             <input type="text" id="busca" placeholder="Buscar Anotação"/>
             <button id="btnBuscar">Buscar</button>
         </div>
 
         <div id="resultados"></div>
+        
         <form id="alterarForm">
-            <p>Alterar <span id="anotacaoTitulo"></span></p>
+            <p class="title">Alterar <span id="anotacaoTitulo"></span></p>
             <select id="altcategoria">
               <option value="Tarefa">Tarefa</option>
               <option value="Receita">Receita</option>

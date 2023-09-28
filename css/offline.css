@@ -1,6 +1,11 @@
+@font-face {
+    font-family: Mine;
+    src: url(../fonts/Minecraft.ttf);
+}
+
 body {
     font-family: sans-serif;
-    background-color: lightgray;
+    background-color: #925133;
 }
 
 html, .fullscreen {
@@ -13,4 +18,7 @@ html, .fullscreen {
 
 .offline {
     margin: auto;
+    font-family: "Mine";
+    color: rgb(119, 175, 51);;
 }
+
