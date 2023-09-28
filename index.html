@@ -34,7 +34,19 @@
             <input type="text" id="busca" placeholder="Buscar Anotação"/>
             <button id="btnBuscar">Buscar</button>
         </div>
+
         <div id="resultados"></div>
+        <form id="alterarForm">
+            <p>Alterar <span id="anotacaoTitulo"></span></p>
+            <select id="altcategoria">
+              <option value="Tarefa">Tarefa</option>
+              <option value="Receita">Receita</option>
+              <option value="Evento">Evento</option>
+            </select><br>
+            <textarea id="altdescricao" cols="30" rows="10" placeholder="Descrição"></textarea><br>
+            <input type="date" id="altdata"><br>
+            <button type="button" class="btnAtualizar">Atualizar</button>
+          </form>
     </div>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/db.js"></script>

@@ -28,26 +28,22 @@ window.addEventListener('DOMContentLoaded', async event =>{
     //document.getElementById('input')
     document.getElementById('btnCadastro').addEventListener('click', adicionarAnotacao);
     document.getElementById('btnCarregar').addEventListener('click', buscarTodasAnotacoes);
-    document.getElementById('btnDeletar').addEventListener('click', deletarAnotacao);
-    document.getElementById('btnAlterar').addEventListener('click', alterarAnotacao);
-    document.getElementById('btnBuscar').addEventListener('click', buscarUmaAnotacao);
+    //document.getElementById('btnBuscar').addEventListener('click', buscarUmaAnotacao);
 });
 
-window.addEventListener(() => {
     document.querySelector('#btnBuscar').addEventListener('submit', async e => {
-        e.preventDefault()
-        let titulo = document.querySelector('#busca').value
-        let result = await getTitulo(titulo)
-        if(result){
-            document.querySelector('#categoria').innerHTML = result.categoria
-            document.querySelector('#descricao').innerHTML = result.descricao
-            document.querySelector('#data').innerHTML = result.data
-        } else {
-            document.querySelector('#categoria').innerHTML = ''
-            document.querySelector('#descricao').innerHTML = ''
-            document.querySelector('#data').innerHTML = ''
-        }
-    })
+    e.preventDefault()
+    let titulo = document.querySelector('#busca').value
+    let result = await getTitulo(titulo)
+    if(result){
+        document.querySelector('#categoria').innerHTML = result.categoria
+        document.querySelector('#descricao').innerHTML = result.descricao
+        document.querySelector('#data').innerHTML = result.data
+    } else {
+        document.querySelector('#categoria').innerHTML = ''
+        document.querySelector('#descricao').innerHTML = ''
+        document.querySelector('#data').innerHTML = ''
+    }
 })
 
 async function buscarTodasAnotacoes(){
@@ -65,13 +61,22 @@ async function buscarTodasAnotacoes(){
                     <p>${anotacao.categoria}</p>
                     <p>${anotacao.descricao}</p>
                     <button class="btnDeletar">Deletar</button>
-                    <button class="btnAlterar">Alterar</button>
+                    <button class="btnAlterar" titulo="${anotacao.titulo}">Alterar</button>
                    </div>`;
         });
         listagem(divLista.join(' '));
+
         const deletar = document.querySelectorAll('.btnDeletar') 
         deletar.forEach((deletar, index) => {
             deletar.addEventListener('click', () => deletarAnotacao(anotacoes[index].titulo))
+        });
+
+        const alterar = document.querySelectorAll(".btnAlterar") 
+        alterar.forEach(alteracao => {
+            alteracao.addEventListener('click', (event) => {
+                const titulo = event.target.getAttribute("titulo");
+                alterarAnotacao(titulo, anotacoes);
+            });
         });
     }
 }
@@ -137,6 +142,35 @@ async function deletarAnotacao(titulo) {
         console.error('Erro ao deletar anotação:', error);
         tx.abort();
     }
+}
+
+function alterarAnotacao(titulo, anotacoes) {
+    const anotacao = anotacoes.find(a => a.titulo === titulo);
+    document.getElementById('anotacaoTitulo').textContent = anotacao.titulo;
+    document.getElementById('altcategoria').value = anotacao.categoria;
+    document.getElementById('altdescricao').value = anotacao.descricao;
+    document.getElementById('altdata').value = anotacao.data;
+
+    const btnAtualizar = document.querySelector(".btnAtualizar");
+    btnAtualizar.addEventListener('click', () => atualizarAnotacao(titulo));
+}
+
+async function atualizarAnotacao(titulo) {
+    const tx = await db.transaction('anotacao', 'readwrite')
+    const store = tx.objectStore('anotacao');
+    const anotacao = await store.get(titulo);
+
+    const altCategoria = document.getElementById('altcategoria').value;
+    const altDescricao = document.getElementById('altdescricao').value;
+    const altData = document.getElementById('altdata').value;
+
+    anotacao.categoria = altCategoria;
+    anotacao.descricao = altDescricao;
+    anotacao.data = altData;
+
+    await store.put(anotacao);
+    await tx.done;
+    document.getElementById('resultados').innerHTML = '';
 }
 
 function limparCampos() {
